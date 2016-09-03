@@ -13,6 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 Route::post('/auth', 'AuthenticateController@authenticate');
-Route::get('/user', 'AuthenticateController@getAuthenticatedUser')->middleware('jwt.auth');
 Route::get('/profile', 'ProfileController@index')->middleware('jwt.auth');
-Route::post('/profile', 'ProfileController@update')->middleware('jwt.auth');
+Route::put('/profile', 'ProfileController@update')->middleware('jwt.auth');
