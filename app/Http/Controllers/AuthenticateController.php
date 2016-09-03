@@ -33,7 +33,7 @@ class AuthenticateController extends Controller
 
     public function getAuthenticatedUser()
     {
-        $user = JWTAuth::toUser();
+        $user = JWTAuth::parseToken()->authenticate();
 
         return $user;
     }
