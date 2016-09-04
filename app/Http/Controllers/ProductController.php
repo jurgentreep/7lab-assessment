@@ -93,4 +93,9 @@ class ProductController extends Controller
         $product->delete();
         return response()->json(['success' => 'Item successfully deleted'], 200);
     }
+
+    public function stock(Product $product)
+    {
+        return response()->json(['stock' => $product->stock], 200);
+    }
 }

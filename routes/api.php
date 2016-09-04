@@ -20,4 +20,5 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::put('profile', 'ProfileController@update');
 
     Route::resource('product', 'ProductController');
+    Route::get('product/{product}/stock', 'ProductController@stock');
 });
