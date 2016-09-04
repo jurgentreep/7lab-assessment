@@ -41,8 +41,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $product = new Product();
-        $product->fill($request->except('price'));
-        $product->price = str_replace(',', '.', $request->input('price'));
+        $product->fill($request->all());
         $product->save();
         return $product;
     }
@@ -78,8 +77,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->fill($request->except('price'));
-        $product->price(number_format($request->input('price'), 2, '.', ''));
+        $product->fill($request->all());
         $product->save();
         return $product;
     }
