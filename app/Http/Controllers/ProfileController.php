@@ -15,7 +15,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
 
 class ProfileController extends Controller
-{   
+{
     public function index()
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -28,8 +28,10 @@ class ProfileController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
+        $user->password = bcrypt($request->input('password'));
 
         $user->save();
+
+        return $user;
     }
 }

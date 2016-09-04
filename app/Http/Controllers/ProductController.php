@@ -40,13 +40,17 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        return Product::create($request->all());
+        $product = new Product();
+        $product->fill($request->except('price'));
+        $product->price = str_replace(',', '.', $request->input('price'));
+        $product->save();
+        return $product;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
@@ -57,7 +61,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -69,12 +73,13 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->fill($request->all());
+        $product->fill($request->except('price'));
+        $product->price(number_format($request->input('price'), 2, '.', ''));
         $product->save();
         return $product;
     }
@@ -82,11 +87,12 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return response()->json(['success' => 'Item successfully deleted'], 200);
     }
 }

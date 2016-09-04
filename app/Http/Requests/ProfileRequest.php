@@ -30,9 +30,10 @@ class ProfileRequest extends FormRequest
      */
     public function rules()
     {
+        $user = JWTAuth::parseToken()->authenticate();
         return [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
             'password' => 'required|min:6',
         ];
     }

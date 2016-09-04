@@ -30,11 +30,26 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:100',
-            'summary' => 'required|max:500',
-            'price' => 'required|integer',
-            'stock' => 'required|integer',
-        ];
+        switch ($this->method()) {
+            case 'POST':
+            {
+                return [
+                    'name' => 'required|max:100',
+                    'summary' => 'required|max:500',
+                    'price' => 'required|regex:/^\d*(\,\d{2})$/',
+                    'stock' => 'required|integer',
+                ];
+            }
+            case 'PUT':
+            case 'PATCH':
+            {
+                return [
+                    'name' => 'required|max:100',
+                    'summary' => 'required|max:500',
+                    'price' => 'required|regex:/^\d*(\,\d{2})$/',
+                    'stock' => 'required|integer',
+                ];
+            }
+        }
     }
 }
