@@ -46,6 +46,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        /**
+         * Convert exception to json response
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  \Illuminate\Database\Eloquent\ModelNotFoundException;  $exception
+         * @return \Illuminate\Http\Response
+         */
         if ($exception instanceof ModelNotFoundException)
         {
             if ($request->ajax())
@@ -56,6 +63,13 @@ class Handler extends ExceptionHandler
             }
         }
 
+        /**
+         * Convert exception to json response
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @param  \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;  $exception
+         * @return \Illuminate\Http\Response
+         */
         if ($exception instanceof MethodNotAllowedHttpException)
         {
             if ($request->ajax())

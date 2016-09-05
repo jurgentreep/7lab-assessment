@@ -23,16 +23,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -55,17 +45,6 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return $product;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Product $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -94,8 +73,25 @@ class ProductController extends Controller
         return response()->json(['success' => 'Item successfully deleted'], 200);
     }
 
+    /**
+     * Return product stock
+     * @param  Product $product
+     * @return \Illuminate\Http\Response
+     */
     public function stock(Product $product)
     {
-        return response()->json(['stock' => $product->stock], 200);
+        switch ($product->stock) {
+            case 1:
+                $message = 'Direct leverbaar';
+                break;
+            case 2:
+                $message = 'Binnen 5 werkdagen';
+                break;
+
+            default:
+                $message = 'Niet op voorraad';
+                break;
+        }
+        return response()->json(['stock' => $message], 200);
     }
 }

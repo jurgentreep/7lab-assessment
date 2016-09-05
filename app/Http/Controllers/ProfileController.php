@@ -16,12 +16,21 @@ use Validator;
 
 class ProfileController extends Controller
 {
+    /**
+     * Return corrent user
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $user = JWTAuth::parseToken()->authenticate();
         return $user;
     }
 
+    /**
+     * Update profile
+     * @param  ProfileRequest $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(ProfileRequest $request)
     {
         $user = JWTAuth::parseToken()->authenticate();
